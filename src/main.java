@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -32,7 +33,11 @@ public class main extends Application {
 
 
         button.setOnAction((event -> {
-            combo_box.getItems().add(text_field.getText());
+            if (combo_box.getItems().contains(text_field.getText())){
+                show_alert();
+            } else {
+                combo_box.getItems().add(text_field.getText());
+            }
         }));
         HBox layout = new HBox();
         layout.setPadding(new Insets(15, 12, 15, 12));
@@ -42,5 +47,14 @@ public class main extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void show_alert(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Alert");
+        alert.setHeaderText("Aborted:");
+        alert.setContentText("Think of something new, fellow!");
+
+        alert.showAndWait();
     }
 }
