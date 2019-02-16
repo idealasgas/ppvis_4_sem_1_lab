@@ -19,13 +19,15 @@ public class main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("лабораторная 1");
+
         FirstTask firstTask = new FirstTask();
+        SecondTask secondTask = new SecondTask();
 
         VBox main = new VBox();
 
 
 
-        main.getChildren().add(firstTask.show());
+        main.getChildren().addAll(firstTask.show(), secondTask.getLayout());
 
         Scene scene = new Scene(main, 600, 300);
         primaryStage.setScene(scene);
