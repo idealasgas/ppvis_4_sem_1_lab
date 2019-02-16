@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class main extends Application {
@@ -16,7 +18,17 @@ public class main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        primaryStage.setTitle("лабораторная 1");
         FirstTask firstTask = new FirstTask();
-        firstTask.show(primaryStage);
+
+        VBox main = new VBox();
+
+
+
+        main.getChildren().add(firstTask.show());
+
+        Scene scene = new Scene(main, 600, 300);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 }
