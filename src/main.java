@@ -23,12 +23,13 @@ public class main extends Application {
         FirstTask firstTask = new FirstTask();
         SecondTask secondTask = new SecondTask();
         ThirdTask thirdTask = new ThirdTask();
+        FourthTask fourthTask = new FourthTask();
 
         VBox main = new VBox();
 
 
 
-        main.getChildren().addAll(firstTask.show(), secondTask.getLayout(), thirdTask.getBox());
+        main.getChildren().addAll(firstTask.show(), secondTask.getLayout(), thirdTask.getBox(), fourthTask.getBox());
 
         Scene scene = new Scene(main, 600, 300);
         primaryStage.setScene(scene);
