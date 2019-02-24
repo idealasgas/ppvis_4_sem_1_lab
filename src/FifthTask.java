@@ -19,11 +19,11 @@ public class FifthTask {
         TableColumn firstColumn = new TableColumn("First column");
         firstColumn.setMinWidth(150);
         firstColumn.setCellValueFactory(
-                new PropertyValueFactory<>("string"));
+                new PropertyValueFactory<>("string1"));
 
         TableColumn secondColumn = new TableColumn("Second column");
         secondColumn.setMinWidth(150);
-        firstColumn.setCellValueFactory(new PropertyValueFactory<>("string"));
+        secondColumn.setCellValueFactory(new PropertyValueFactory<>("string2"));
 
         ObservableList<Property> data = FXCollections.observableArrayList();
 
@@ -33,15 +33,33 @@ public class FifthTask {
         table.setPrefWidth(300);
         // сделать чтобы текст из поля для текста удалялся
         firstButton.setOnAction((event -> {
-            //firstColumn.setText(textField.getText());
-            data.add(new Property(textField.getText()));
+            data.add(new Property(textField.getText(),""));
             table.setItems(data);
         }));
-//
-//        secondButton.setOnAction((event -> {
-//            secondColumn.setText(firstColumn.getText());
-//            firstColumn.setText("");
-//        }));
+
+        secondButton.setOnAction((event -> {
+            int index = table.getFocusModel().getFocusedIndex();
+
+            String buffer = data.get(index).getString1();
+
+            data.remove(index);
+            data.add(index, new Property("", buffer));
+
+//            data.get(table.getFocusModel().getFocusedIndex()).setString1("");
+//            data.get(table.getFocusModel().getFocusedIndex()).setString2(buffer);
+            table.setItems(data);
+
+        }));
+
+        thirdButton.setOnAction((event -> {
+            int index = table.getFocusModel().getFocusedIndex();
+            String buffer = data.get(index).getString2();
+
+            data.remove(index);
+            data.add(index, new Property(buffer, ""));
+
+            table.setItems(data);
+        }));
 
         HBox firstContainer = new HBox();
         firstContainer.getChildren().addAll(textField, firstButton, secondButton, thirdButton);
