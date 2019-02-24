@@ -1,12 +1,5 @@
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -33,7 +26,7 @@ public class main extends Application {
         main.getChildren().addAll(firstTask.show(), secondTask.getLayout(), thirdTask.getBox(), fourthTask.getBox(),
                 fifthTask.getBox());
 
-        Scene scene = new Scene(main, 600, 300);
+        Scene scene = new Scene(main, 415, 650);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

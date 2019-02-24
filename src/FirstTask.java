@@ -13,8 +13,6 @@ public class FirstTask {
     public HBox show(){
         button = new Button("кнопка");
         text_field = new TextField();
-        text_field.setPrefWidth(400);
-        text_field.getText();
         combo_box = new ComboBox();
 
         button.setOnAction((event -> {
@@ -23,9 +21,10 @@ public class FirstTask {
             } else {
                 combo_box.getItems().add(text_field.getText());
             }
+            text_field.setText("");
         }));
         HBox layout = new HBox();
-        layout.setPadding(new Insets(15, 12, 15, 12));
+        layout.setPadding(new Insets(15));
         layout.setSpacing(10);
         layout.getChildren().addAll(text_field, button, combo_box);
         return layout;

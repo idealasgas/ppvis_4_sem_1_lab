@@ -1,5 +1,8 @@
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+
 import java.util.ArrayList;
 
 public class ThirdTask {
@@ -9,8 +12,8 @@ public class ThirdTask {
     RadioButton secondRadioButton = new RadioButton("is");
     RadioButton thirdRadioButton = new RadioButton("better!");
 
-    public HBox getBox(){
-        Button button = new Button();
+    public VBox getBox(){
+        Button button = new Button("button");
         toggleGroup.getToggles().addAll(firstRadioButton, secondRadioButton, thirdRadioButton);
         TextField textField = new TextField();
         ArrayList<RadioButton> radioButtonList = new ArrayList<RadioButton>();
@@ -30,10 +33,22 @@ public class ThirdTask {
             }
         });
 
-        HBox container = new HBox();
-        container.getChildren().addAll(textField, firstRadioButton, secondRadioButton, thirdRadioButton, button);
 
-        return container;
+        VBox radioButtonContainer = new VBox();
+        radioButtonContainer.getChildren().addAll(firstRadioButton, secondRadioButton, thirdRadioButton);
+//        radioButtonContainer.setPadding(new Insets(15, 12, 15, 12));
+        radioButtonContainer.setSpacing(10);
+
+        HBox container = new HBox();
+        container.getChildren().addAll(textField, button);
+        container.setSpacing(10);
+
+        VBox mainContainer = new VBox();
+        mainContainer.getChildren().addAll(container, radioButtonContainer);
+        mainContainer.setPadding(new Insets(15));
+        mainContainer.setSpacing(10);
+
+        return mainContainer;
     }
 
     private void showAlert(){

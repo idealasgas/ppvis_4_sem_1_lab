@@ -2,6 +2,7 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
@@ -63,12 +64,16 @@ public class FifthTask {
 
         HBox firstContainer = new HBox();
         firstContainer.getChildren().addAll(textField, firstButton, secondButton, thirdButton);
+        firstContainer.setSpacing(10);
 
         HBox secondContainer = new HBox();
         secondContainer.getChildren().add(table);
+        secondContainer.setSpacing(10);
 
         VBox mainContainer = new VBox();
         mainContainer.getChildren().addAll(firstContainer, secondContainer);
+        mainContainer.setSpacing(10);
+        mainContainer.setPadding(new Insets(15));
 
         return mainContainer;
     }
