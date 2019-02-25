@@ -41,25 +41,25 @@ public class FifthTask {
         secondButton.setOnAction((event -> {
             int index = table.getFocusModel().getFocusedIndex();
 
-            String buffer = data.get(index).getString1();
+            if (data.get(index).getString1() != ""){
+                String buffer = data.get(index).getString1();
 
-            data.remove(index);
-            data.add(index, new Property("", buffer));
-
-//            data.get(table.getFocusModel().getFocusedIndex()).setString1("");
-//            data.get(table.getFocusModel().getFocusedIndex()).setString2(buffer);
-            table.setItems(data);
-
+                data.remove(index);
+                data.add(index, new Property("", buffer));
+                table.setItems(data);
+            }
         }));
 
         thirdButton.setOnAction((event -> {
             int index = table.getFocusModel().getFocusedIndex();
-            String buffer = data.get(index).getString2();
+            if (data.get(index).getString2() != ""){
+                String buffer = data.get(index).getString2();
 
-            data.remove(index);
-            data.add(index, new Property(buffer, ""));
+                data.remove(index);
+                data.add(index, new Property(buffer, ""));
 
-            table.setItems(data);
+                table.setItems(data);
+            }
         }));
 
         HBox firstContainer = new HBox();
