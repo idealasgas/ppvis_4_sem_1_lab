@@ -7,26 +7,26 @@ import javafx.scene.layout.HBox;
 
 public class FirstTask {
     Button button;
-    TextField text_field;
-    ComboBox combo_box;
+    TextField textField;
+    ComboBox comboBox;
 
-    public HBox show(){
+    public HBox getBox(){
         button = new Button("кнопка");
-        text_field = new TextField();
-        combo_box = new ComboBox();
+        textField = new TextField();
+        comboBox = new ComboBox();
 
         button.setOnAction((event -> {
-            if (combo_box.getItems().contains(text_field.getText())){
+            if (comboBox.getItems().contains(textField.getText())){
                 showAlert();
             } else {
-                combo_box.getItems().add(text_field.getText());
+                comboBox.getItems().add(textField.getText());
             }
-            text_field.setText("");
+            textField.setText("");
         }));
         HBox layout = new HBox();
         layout.setPadding(new Insets(15));
         layout.setSpacing(10);
-        layout.getChildren().addAll(text_field, button, combo_box);
+        layout.getChildren().addAll(textField, button, comboBox);
         return layout;
     }
 

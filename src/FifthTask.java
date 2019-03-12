@@ -28,11 +28,8 @@ public class FifthTask {
 
         ObservableList<Property> data = FXCollections.observableArrayList();
 
-        //table.setItems(data);
-
         table.getColumns().addAll(firstColumn, secondColumn);
         table.setPrefWidth(300);
-        // сделать чтобы текст из поля для текста удалялся
         firstButton.setOnAction((event -> {
             data.add(new Property(textField.getText(),""));
             table.setItems(data);

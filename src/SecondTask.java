@@ -8,7 +8,7 @@ public class SecondTask {
     Button firstButton;
     Button secondButton;
 
-    public HBox getLayout(){
+    public HBox getBox(){
         textField = new TextField();
         firstButton = new Button("button 1");
         secondButton = new Button("button 2");

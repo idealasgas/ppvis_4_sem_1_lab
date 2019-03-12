@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public class ThirdTask {
     ToggleGroup toggleGroup = new ToggleGroup();
 
-    RadioButton firstRadioButton = new RadioButton("Ruby");
-    RadioButton secondRadioButton = new RadioButton("is");
-    RadioButton thirdRadioButton = new RadioButton("better!");
+    RadioButton firstRadioButton = new RadioButton("first");
+    RadioButton secondRadioButton = new RadioButton("second");
+    RadioButton thirdRadioButton = new RadioButton("third!");
 
     public VBox getBox(){
         Button button = new Button("button");
@@ -36,7 +36,6 @@ public class ThirdTask {
 
         VBox radioButtonContainer = new VBox();
         radioButtonContainer.getChildren().addAll(firstRadioButton, secondRadioButton, thirdRadioButton);
-//        radioButtonContainer.setPadding(new Insets(15, 12, 15, 12));
         radioButtonContainer.setSpacing(10);
 
         HBox container = new HBox();
