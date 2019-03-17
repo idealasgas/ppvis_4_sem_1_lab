@@ -24,7 +24,7 @@ public class Main extends Application {
         main.getChildren().addAll(firstTask.getBox(), secondTask.getBox(), thirdTask.getBox(), fourthTask.getBox(),
                 fifthTask.getBox(), individualTask.getBox());
 
-        Scene scene = new Scene(main, 415, 650);
+        Scene scene = new Scene(main, 680, 650);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

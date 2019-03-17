@@ -1,5 +1,6 @@
 import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -7,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class IndividualTask {
@@ -38,7 +40,10 @@ public class IndividualTask {
         stop.setOnAction(event -> stop());
 
         panel.getChildren().addAll(width, height, makeTable, move, stop);
+        panel.setSpacing(10);
         main.getChildren().addAll(panel, tableBox);
+        main.setPadding(new Insets(15));
+        main.setSpacing(10);
         return main;
     }
 
@@ -52,9 +57,9 @@ public class IndividualTask {
                 new Thread(()->{
                     Moving = true;
                     while(Moving){
+                        moveCells();
+                        printMatrix(table, data);
                         try {
-                            move(data);
-                            printMatrix(table, data);
                             Thread.sleep(2000);
                         } catch(InterruptedException e) {
                             e.printStackTrace();
@@ -64,6 +69,16 @@ public class IndividualTask {
             }
         );
 
+    }
+
+    private void moveCells(){
+        Platform.runLater(
+                () -> {
+                    new Thread(()->{
+                        move(data);
+                    }).start();
+                }
+        );
     }
 
     private TableView<int[]> getTable(int width, int height){
@@ -115,6 +130,8 @@ public class IndividualTask {
                 change(array, dataCopy, i, j);
             }
         }
+
+
 
         data = dataCopy;
     }
