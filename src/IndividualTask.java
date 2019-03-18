@@ -1,5 +1,5 @@
-import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -7,14 +7,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
-import java.util.Arrays;
-import java.util.concurrent.ThreadLocalRandom;
+import sun.awt.windows.ThemeReader;
 
 public class IndividualTask {
     TableView<int[]> table;
     int[][] data;
-    boolean Moving;
+    volatile boolean moving;
+    Thread thread = createThread1();
+    Thread thread2 = MoveDownPlease();
 
     public VBox getBox() {
         Button makeTable = new Button("make table");
@@ -32,12 +32,16 @@ public class IndividualTask {
         });
 
         move.setOnAction(event -> {
-//            Thread thread = moveContinuously();
-//            thread.start();
-            moveContinuously();
+            moving = true;
+            thread.start();
+            thread2.start();
+
+//            table.refresh();
         });
 
-        stop.setOnAction(event -> stop());
+        stop.setOnAction(event -> {
+            stop();
+        });
 
         panel.getChildren().addAll(width, height, makeTable, move, stop);
         panel.setSpacing(10);
@@ -48,49 +52,22 @@ public class IndividualTask {
     }
 
     private void stop(){
-        Moving = false;
-    }
-
-    private void moveContinuously(){
-        Platform.runLater(
-            () -> {
-                new Thread(()->{
-                    Moving = true;
-                    while(Moving){
-                        moveCells();
-                        printMatrix(table, data);
-                        try {
-                            Thread.sleep(2000);
-                        } catch(InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-            }
-        );
-
-    }
-
-    private void moveCells(){
-        Platform.runLater(
-                () -> {
-                    new Thread(()->{
-                        move(data);
-                    }).start();
-                }
-        );
+        moving = false;
+        thread = createThread1();
     }
 
     private TableView<int[]> getTable(int width, int height){
         data = new int[width][height];
         for (int i = 0; i < width; i++){
             for (int j = 0; j < height; j++){
-                data[i][j] = ThreadLocalRandom.current().nextInt(0, 2);
-//                data[i][j] = 0;
+//                data[i][j] = ThreadLocalRandom.current().nextInt(0, 2);
+                data[i][j] = 0;
             }
         }
 
-//        data[0][0] = 1;
+        data[0][1] = 1;
+        data[0][2] = 2;
+        data[1][1] = 3;
 
         TableView<int[]> table = new TableView<>();
         printMatrix(table, data);
@@ -122,35 +99,54 @@ public class IndividualTask {
         }
     }
 
-    private void move(int[][] array){
-        int[][] dataCopy = new int[array.length][array[0].length];
-
-        for (int i = 0; i < array.length; i++){
-            for (int j = 0; j < array[0].length; j++){
-                change(array, dataCopy, i, j);
+    private Thread createThread1(){
+        return new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted()){
+                while (moving) {
+                    moveRight();
+                    table.refresh();
+                    moveRight();
+                    table.refresh();
+                    moveDown();
+//                    table.refresh();
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-        }
-
-
-
-        data = dataCopy;
+        });
     }
 
-    private void change(int[][] source, int[][] target, int i, int j){
-        int x, y;
-        if (i == source.length - 1){
-            x = 0;
-        } else {
-            x = i + 1;
+    private void moveDown(){
+        int[] temp = data[data.length - 1];
+        for (int i = data.length - 1; i > 0; i--){
+            data[i] = data[i-1];
         }
-        if (j == source[0].length - 1){
-            y = 1;
-        } else if (j == source[0].length - 2){
-            y = 0;
-        } else {
-            y = j + 2;
-        }
-
-        target[x][y] = source[i][j];
+        data[0] = temp;
     }
+
+    private void moveRight(){
+        for (int[] row: data) {
+            int temp = row[row.length - 1];
+            for(int i = row.length - 1; i > 0; i--){
+                row[i] = row[i-1];
+            }
+            row[0] = temp;
+        }
+    }
+
+    private Thread MoveDownPlease(){
+        Task task = new Task<Void>() {
+            @Override public Void call() {
+                moveDown();
+                printMatrix(table, data);
+                return null;
+            }
+        };
+        return new Thread(task);
+    }
+
+
 }
