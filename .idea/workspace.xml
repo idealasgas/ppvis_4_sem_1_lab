@@ -68,16 +68,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/IndividualTask.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-326">
-              <caret line="36" column="28" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
+            <state relative-caret-position="-1141">
+              <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#getTable#0;class#IndividualTask#0" />
                 <element signature="method#printMatrix#0;class#IndividualTask#0" />
-                <element signature="e#4067#4197#0" expanded="true" />
-                <element signature="e#4196#4197#0" expanded="true" />
-                <marker date="1552853896251" expanded="true" signature="1228:1259" ph="..." />
-                <marker date="1552853896251" expanded="true" signature="3366:3536" ph="..." />
               </folding>
             </state>
           </provider>
@@ -210,7 +205,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91085000" />
+    <option name="totallyTimeSpent" value="92323000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -223,6 +218,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="1" />
@@ -233,7 +229,7 @@
       <window_info content_ui="combo" id="Project" order="6" weight="0.19530201" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
-      <window_info anchor="bottom" x="792" y="301" width="721" height="227" id="Run" order="2" weight="0.8626062" />
+      <window_info active="true" anchor="bottom" x="792" y="301" width="721" height="227" id="Run" order="2" visible="true" weight="0.18130311" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.66288954" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -336,7 +332,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/IndividualTask.java</url>
-          <line>121</line>
+          <line>112</line>
           <properties class="IndividualTask" method="moveDown">
             <option name="EMULATED" value="true" />
           </properties>
@@ -476,16 +472,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/IndividualTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-326">
-          <caret line="36" column="28" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
+        <state relative-caret-position="-1141">
+          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getTable#0;class#IndividualTask#0" />
             <element signature="method#printMatrix#0;class#IndividualTask#0" />
-            <element signature="e#4067#4197#0" expanded="true" />
-            <element signature="e#4196#4197#0" expanded="true" />
-            <marker date="1552853896251" expanded="true" signature="1228:1259" ph="..." />
-            <marker date="1552853896251" expanded="true" signature="3366:3536" ph="..." />
           </folding>
         </state>
       </provider>

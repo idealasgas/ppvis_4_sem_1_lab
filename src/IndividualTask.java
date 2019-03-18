@@ -1,5 +1,4 @@
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -7,14 +6,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import sun.awt.windows.ThemeReader;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 public class IndividualTask {
     TableView<int[]> table;
     int[][] data;
     volatile boolean moving;
-    Thread thread = createThread1();
-    Thread thread2 = MoveDownPlease();
+    Thread thread = getThread();
 
     public VBox getBox() {
         Button makeTable = new Button("make table");
@@ -34,9 +33,6 @@ public class IndividualTask {
         move.setOnAction(event -> {
             moving = true;
             thread.start();
-            thread2.start();
-
-//            table.refresh();
         });
 
         stop.setOnAction(event -> {
@@ -53,21 +49,16 @@ public class IndividualTask {
 
     private void stop(){
         moving = false;
-        thread = createThread1();
+        thread = getThread();
     }
 
     private TableView<int[]> getTable(int width, int height){
         data = new int[width][height];
         for (int i = 0; i < width; i++){
             for (int j = 0; j < height; j++){
-//                data[i][j] = ThreadLocalRandom.current().nextInt(0, 2);
-                data[i][j] = 0;
+                data[i][j] = ThreadLocalRandom.current().nextInt(0, 2);
             }
         }
-
-        data[0][1] = 1;
-        data[0][2] = 2;
-        data[1][1] = 3;
 
         TableView<int[]> table = new TableView<>();
         printMatrix(table, data);
@@ -99,7 +90,7 @@ public class IndividualTask {
         }
     }
 
-    private Thread createThread1(){
+    private Thread getThread(){
         return new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()){
                 while (moving) {
@@ -108,7 +99,7 @@ public class IndividualTask {
                     moveRight();
                     table.refresh();
                     moveDown();
-//                    table.refresh();
+                    table.refresh();
                     try {
                         Thread.sleep(200);
                     } catch (InterruptedException e) {
@@ -136,17 +127,4 @@ public class IndividualTask {
             row[0] = temp;
         }
     }
-
-    private Thread MoveDownPlease(){
-        Task task = new Task<Void>() {
-            @Override public Void call() {
-                moveDown();
-                printMatrix(table, data);
-                return null;
-            }
-        };
-        return new Thread(task);
-    }
-
-
 }
