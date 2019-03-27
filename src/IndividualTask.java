@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -6,6 +7,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.animation.AnimationTimer;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -13,7 +15,8 @@ public class IndividualTask {
     TableView<int[]> table;
     int[][] data;
     volatile boolean moving;
-    Thread thread = getThread();
+    volatile int step;
+    volatile boolean needUpdate;
 
     public VBox getBox() {
         Button makeTable = new Button("make table");
@@ -30,9 +33,30 @@ public class IndividualTask {
             tableBox.getChildren().add(table);
         });
 
+        needUpdate = false;
+
+        AnimationTimer animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                if(needUpdate){
+                    if (step == 1 || step == 2){
+                        table.refresh();
+                    }
+                    if (step == 3) {
+                        printMatrix(table, data);
+                    }
+                    needUpdate = false;
+                }
+            }
+        };
+
         move.setOnAction(event -> {
+            animationTimer.start();
+
+            step = 1;
             moving = true;
-            thread.start();
+            moveRightThread();
+            moveDownThread();
         });
 
         stop.setOnAction(event -> {
@@ -49,7 +73,6 @@ public class IndividualTask {
 
     private void stop(){
         moving = false;
-        thread = getThread();
     }
 
     private TableView<int[]> getTable(int width, int height){
@@ -90,26 +113,6 @@ public class IndividualTask {
         }
     }
 
-    private Thread getThread(){
-        return new Thread(() -> {
-            while (!Thread.currentThread().isInterrupted()){
-                while (moving) {
-                    moveRight();
-                    table.refresh();
-                    moveRight();
-                    table.refresh();
-                    moveDown();
-                    table.refresh();
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-    }
-
     private void moveDown(){
         int[] temp = data[data.length - 1];
         for (int i = data.length - 1; i > 0; i--){
@@ -126,5 +129,43 @@ public class IndividualTask {
             }
             row[0] = temp;
         }
+    }
+
+    private void moveRightThread(){
+        new Thread(() -> {
+            while (moving) {
+                if (step == 1 || step == 2) {
+                    moveRight();
+                    needUpdate = true;
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (step == 1) {
+                        step = 2;
+                    } else {
+                        step = 3;
+                    }
+                }
+            }
+        }).start();
+    }
+
+    private void moveDownThread(){
+        new Thread(() -> {
+            while (moving) {
+                if (step == 3){
+                    moveDown();
+                    needUpdate = true;
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    step = 1;
+                }
+            }
+        }).start();
     }
 }
