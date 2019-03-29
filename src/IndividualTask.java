@@ -1,4 +1,3 @@
-import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -39,10 +38,10 @@ public class IndividualTask {
             @Override
             public void handle(long now) {
                 if(needUpdate){
-                    if (step == 1 || step == 2){
+                    if (isRightMove()){
                         table.refresh();
                     }
-                    if (step == 3) {
+                    if (isDownMove()) {
                         printMatrix(table, data);
                     }
                     needUpdate = false;
@@ -70,6 +69,12 @@ public class IndividualTask {
         main.setSpacing(10);
         return main;
     }
+
+    private boolean isRightMove() {
+        return step == 1 || step == 2;
+    }
+
+    private boolean isDownMove() { return step == 3;}
 
     private void stop(){
         moving = false;
@@ -134,7 +139,7 @@ public class IndividualTask {
     private void moveRightThread(){
         new Thread(() -> {
             while (moving) {
-                if (step == 1 || step == 2) {
+                if (isRightMove()) {
                     moveRight();
                     needUpdate = true;
                     try {
@@ -155,7 +160,7 @@ public class IndividualTask {
     private void moveDownThread(){
         new Thread(() -> {
             while (moving) {
-                if (step == 3){
+                if (isDownMove()){
                     moveDown();
                     needUpdate = true;
                     try {
